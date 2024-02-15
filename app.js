@@ -1,40 +1,11 @@
-const http = require("http");
 const fs = require("fs");
+// const files = fs.readdirSync("./");
+// console.log(files);
 
-const server = http.createServer((req, res) => {
-  const url = req.url;
-  const method = req.method;
-  if (url === "/") {
-    res.write("<html>");
-    res.write("<head><title>Hello Nirmal</title></head>");
-    res.write(
-      "<body><form action='/message' method='POST'><input type'text' name='message'></input><button type='submit'>Submit</button></form></body>"
-    );
-    res.write("</html>");
-    return res.end();
+const files = fs.readdir("./", function (error, files) {
+  if (error) {
+    console.log(error);
+  } else {
+    console.log(files);
   }
-  if (url === "/message" && method === "POST") {
-    const body = [];
-    req.on("data", (chunk) => {
-      console.log(chunk);
-      body.push(chunk);
-    });
-    req.on("end", () => {
-      const parsedBody = Buffer.concat(body).toString();
-      const message = parsedBody.split("=")[1];
-      fs.writeFileSync("message.txt", message);
-      console.log(parsedBody);
-    });
-
-    res.statusCode === 302;
-    res.setHeader("Location", "/");
-    return res.end();
-  }
-  res.setHeader("Content-Type", "text/html");
-  res.write("<html>");
-  res.write("<head><title>Hello Nirmal</title></head>");
-  res.write("<body><h1></h1></body>");
-  res.write("</html>");
-  res.end();
 });
-server.listen(8400);
