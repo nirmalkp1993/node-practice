@@ -1,11 +1,8 @@
-const fs = require("fs");
-// const files = fs.readdirSync("./");
-// console.log(files);
+const Event = require("events");
+const newEvent = new Event();
 
-const files = fs.readdir("./", function (error, files) {
-  if (error) {
-    console.log(error);
-  } else {
-    console.log(files);
-  }
+newEvent.on("messageLogged", () => {
+  console.log("message");
 });
+
+newEvent.emit("messageLogged");
