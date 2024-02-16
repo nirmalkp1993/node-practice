@@ -1,8 +1,8 @@
 const Event = require("events");
 const newEvent = new Event();
 
-newEvent.on("messageLogged", () => {
-  console.log("message");
+newEvent.on("messageLogged", (arg) => {
+  console.log("message", arg);
 });
 
-newEvent.emit("messageLogged");
+newEvent.emit("messageLogged", { id: "34", url: "www.hrq.com" });
